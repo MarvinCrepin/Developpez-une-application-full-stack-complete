@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@MapperConfig
-
 public class MddApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MddApiApplication.class, args);
