@@ -1,9 +1,11 @@
 package com.openclassrooms.mddapi.mapper;
 
+import com.openclassrooms.mddapi.dto.user.CommentDTO;
 import com.openclassrooms.mddapi.dto.user.PostDTO;
+import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;
-import com.openclassrooms.mddapi.models.Subject;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.services.CommentService;
 import com.openclassrooms.mddapi.services.PostService;
 import com.openclassrooms.mddapi.services.SubjectService;
 import com.openclassrooms.mddapi.services.UserService;
@@ -17,30 +19,21 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {PostService.class}, imports = {Arrays.class, Collectors.class, Post.class, User.class, Collections.class, Optional.class})
-public abstract class PostMapper implements EntityMapper<PostDTO, Post> {
+@Mapper(componentModel = "spring", uses = {CommentService.class}, imports = {Arrays.class, Collectors.class, Post.class, User.class, Collections.class, Optional.class})
+public abstract class CommentMapper implements EntityMapper<CommentDTO, Comment> {
 
     @Autowired
-    SubjectService subjectService;
+    CommentService commentService;
     @Autowired
     UserService userService;
 
-    @Mappings({
-            @Mapping(source = "title", target = "title"),
-            @Mapping(source = "content", target = "content"),
-            @Mapping(source = "createdDate", target = "createdDate"),
-            @Mapping(target = "subject", expression = "java(this.subjectService.findById(postDto.getSubject_id()))"),
-            @Mapping(target = "author", expression = "java(this.userService.findById(postDto.getAuthor_id()))"),
-    })
-    public abstract Post toEntity(PostDTO postDto);
 
 
     @Mappings({
-            @Mapping(source = "title", target = "title"),
             @Mapping(source = "content", target = "content"),
             @Mapping(source = "createdDate", target = "createdDate"),
-            @Mapping(source = "post.subject.id", target = "subject_id"),
-            @Mapping(source = "post.author.id", target = "author_id"),
+            @Mapping(source = "user.username", target = "username"),
+            @Mapping(source = "post.id", target = "postId"),
     })
-    public abstract PostDTO toDto(Post post);
+    public abstract CommentDTO toDto(Comment comment);
 }

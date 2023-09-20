@@ -1,12 +1,14 @@
 package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.models.Post;
+import com.openclassrooms.mddapi.models.Subject;
+import com.openclassrooms.mddapi.models.Subscription;
 import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -33,6 +35,10 @@ public class PostService {
 
     public Post findById(Long id) {
         return this.postRepository.findById(id).orElse(null);
+    }
+
+    public Optional<List<Post>> findBySubject(Subject subject) {
+        return this.postRepository.findBySubject(subject);
     }
 
     public Post update(Long id, Post post) {

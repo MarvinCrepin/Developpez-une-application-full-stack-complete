@@ -1,78 +1,82 @@
 package com.openclassrooms.mddapi.controllers;
 
-import javax.validation.Valid;
-
+import com.openclassrooms.mddapi.dto.user.CommentDTO;
+import com.openclassrooms.mddapi.mapper.CommentMapper;
+import com.openclassrooms.mddapi.models.Comment;
+import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.payload.request.CommentRequest;
 import com.openclassrooms.mddapi.payload.request.LoginRequest;
 import com.openclassrooms.mddapi.payload.request.SignupRequest;
 import com.openclassrooms.mddapi.payload.response.JwtResponse;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
-import com.openclassrooms.mddapi.repository.UserRepository;
-import com.openclassrooms.mddapi.security.jwt.JwtUtils;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
+import com.openclassrooms.mddapi.services.CommentService;
+import com.openclassrooms.mddapi.services.PostService;
+import com.openclassrooms.mddapi.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtils jwtUtils;
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
+@RequestMapping("/api/comment")
+public class CommentController {
+    private final UserService userService;
 
-    AuthController(AuthenticationManager authenticationManager,
-                   PasswordEncoder passwordEncoder,
-                   JwtUtils jwtUtils,
-                   UserRepository userRepository) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
+    private final PostService postService;
+
+    private final CommentService commentService;
+
+    private final CommentMapper commentMapper;
+
+
+    CommentController(UserService userService, PostService postService, CommentService commentService, CommentMapper commentMapper) {
+        this.userService = userService;
+        this.postService = postService;
+        this.commentService = commentService;
+        this.commentMapper = commentMapper;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping()
+    public ResponseEntity<?> create(@Valid @RequestBody CommentRequest commentRequest) {
+        Post post = this.postService.findById(commentRequest.getPostId());
+        User user = this.userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        User user = this.userRepository.findByEmail(userDetails.getUsername()).orElse(null);
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail()));
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        System.out.println(signUpRequest);
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if(post == null) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already taken!"));
+                    .build();
+        }
+        Comment comment = new Comment(post, user, commentRequest.getContent());
+
+        this.commentService.create(comment);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<?> findByPostId(@PathVariable("postId") String postId) {
+        Post post = this.postService.findById(Long.valueOf(postId));
+        Optional<List<Comment>> comments = this.commentService.findByPost(post);
+        if(comments.isEmpty()) {
+            return ResponseEntity.ok().body(new ArrayList<>());
+
         }
 
-        User user = new User(signUpRequest.getEmail(),
-                signUpRequest.getUsername(),
-                passwordEncoder.encode(signUpRequest.getPassword()));
-
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        List<CommentDTO> list = new ArrayList<CommentDTO>(comments.get().size());
+        for (Comment comment : comments.get()) {
+            list.add(this.commentMapper.toDto(comment));
+        }
+        return ResponseEntity.ok().body(list);
     }
+
+
 }

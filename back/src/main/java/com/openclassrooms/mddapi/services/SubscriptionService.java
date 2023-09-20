@@ -41,6 +41,10 @@ public class SubscriptionService {
         return this.subscriptionRepository.findByUserAndSubject(user, subject);
     }
 
+    public Optional<List<Subscription>> findByUser(User user) {
+        return this.subscriptionRepository.findByUser(user);
+    }
+
     public Subscription update(Long id, Subscription subscription) {
         subscription.setId(id);
         return this.subscriptionRepository.save(subscription);
