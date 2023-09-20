@@ -14,18 +14,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private Long id;
 
     @NonNull
-    @Size(max = 50)
+    private Long id;
+
     @Email
     private String email;
 
+    @NonNull
+    @Size(max = 20)
     private String username;
 
     @JsonIgnore
     @Size(max = 120)
     private String password;
 
+    @NonNull
     private LocalDateTime createdAt;
 }

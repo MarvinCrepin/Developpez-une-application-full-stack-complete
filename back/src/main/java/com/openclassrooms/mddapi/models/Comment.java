@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"id"})
 @Builder
 @RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Comment {
@@ -39,4 +40,10 @@ public class Comment {
     @CreatedDate
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
+    public Comment(Post post, User user, String content) {
+        this.setPost(post);
+        this.setUser(user);
+        this.setContent(content);
+    }
 }

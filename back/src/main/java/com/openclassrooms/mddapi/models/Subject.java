@@ -12,6 +12,7 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = {"id"})
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -23,4 +24,6 @@ public class Subject {
     @NonNull
     private String name;
 
+    @NonNull
+    private String description;
 }
