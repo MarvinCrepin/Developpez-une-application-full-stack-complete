@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = {"id"})
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -22,15 +23,12 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @NonNull
-    @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @ManyToOne
+    @OneToOne
     @NonNull
-    @JoinColumn(name = "user_id")
     private User user;
-
 
 }
