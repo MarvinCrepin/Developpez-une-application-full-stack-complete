@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.dto.user.CommentDTO;
+import com.openclassrooms.mddapi.dto.CommentDTO;
 import com.openclassrooms.mddapi.mapper.CommentMapper;
 import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;

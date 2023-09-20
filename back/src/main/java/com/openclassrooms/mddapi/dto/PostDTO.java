@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.dto.user;
+package com.openclassrooms.mddapi.dto;
 
 import com.openclassrooms.mddapi.models.Subject;
 import com.openclassrooms.mddapi.models.User;

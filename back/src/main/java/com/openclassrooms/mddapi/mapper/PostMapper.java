@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.mapper;
 
-import com.openclassrooms.mddapi.dto.user.PostDTO;
+import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.PostService;
