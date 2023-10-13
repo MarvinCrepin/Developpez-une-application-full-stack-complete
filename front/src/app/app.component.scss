@@ -7,7 +7,26 @@ mat-toolbar {
     border-bottom: solid 1px;
     border-color: rgb(220, 220, 220);
     height: 96px;
+    display: flex;
+    justify-content: space-between;
     img {
         height: 5em;
+    }
+    .link + .link {
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+    mat-icon {
+        vertical-align: middle;
+        color: grey;
+        transform: scale(2);
+        margin-right: 2em;
+
+    }
+    .router-links {
+        display: flex;
+        align-items: center;
+        font-size: 1.3em;
+        cursor: pointer;
     }
 }

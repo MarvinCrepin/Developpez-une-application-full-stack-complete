@@ -21,15 +21,7 @@ export class RegisterComponent {
         Validators.email
       ]
     ],
-    firstName: [
-      '',
-      [
-        Validators.required,
-        Validators.min(3),
-        Validators.max(20)
-      ]
-    ],
-    lastName: [
+    username: [
       '',
       [
         Validators.required,

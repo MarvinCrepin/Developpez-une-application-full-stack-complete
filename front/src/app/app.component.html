@@ -1,6 +1,10 @@
 <router-outlet>
     <mat-toolbar>
         <img src="../assets/logo_p6.png" >
-
+        <div class="router-links" *ngIf="$isLogged() | async;">
+          <span routerLink="feed" class="link">Articles</span>
+          <span routerLink="subjects" class="link">Thèmes</span>
+          <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+        </div>
       </mat-toolbar>
 </router-outlet>
