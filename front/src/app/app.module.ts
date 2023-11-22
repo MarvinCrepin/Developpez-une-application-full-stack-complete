@@ -19,6 +19,16 @@ import { FeedComponent } from './features/posts/components/list/feed.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LocalStorageService } from './services/localstorage.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ListComponent } from './features/subjects/components/list/list.component';
+import { DetailComponent } from './features/posts/components/detail/detail.component';
+import { NewComponent } from './features/posts/components/new/new.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { ProfileComponent } from './features/user/components/profile/profile.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatListModule} from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ModalComponent } from './features/modal/components/modal.component';
 
 const materialModule = [
   MatButtonModule,
@@ -28,11 +38,16 @@ const materialModule = [
   MatToolbarModule,
   MatFormFieldModule,
   MatInputModule,
-  MatGridListModule
+  MatGridListModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatDialogModule,
+  MatListModule,
+  MatSidenavModule
 ]
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, FeedComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, FeedComponent, ListComponent, DetailComponent, NewComponent, ProfileComponent, ModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

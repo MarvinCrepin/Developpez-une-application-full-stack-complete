@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SessionService } from './services/session.service';
+import { LocalStorageService } from './services/localstorage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from './features/modal/components/modal.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,15 +14,27 @@ import { SessionService } from './services/session.service';
 export class AppComponent {
   constructor(
     private router: Router,
-    private sessionService: SessionService) {
+    private  localStorageService: LocalStorageService,
+    public dialog: MatDialog){
   }
 
-  public $isLogged(): Observable<boolean> {
-    return this.sessionService.$isLogged();
+  openModal(): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '50%',
+      height: '100%'
+    });
+    console.log(dialogRef)
+  }
+
+  closeModal(): void {
+    this.dialog.closeAll();
+  }
+
+  public isLogged() {
+    return !!this.localStorageService.get('token');
   }
 
   public logout(): void {
-    this.sessionService.logOut();
     this.router.navigate([''])
   }
 }

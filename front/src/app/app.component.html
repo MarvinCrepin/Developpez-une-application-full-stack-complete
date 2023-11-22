@@ -1,10 +1,16 @@
 <router-outlet>
-    <mat-toolbar>
+    <mat-toolbar  class="desktop">
         <img src="../assets/logo_p6.png" >
-        <div class="router-links" *ngIf="$isLogged() | async;">
+        <div class="router-links" *ngIf="isLogged()">
           <span routerLink="feed" class="link">Articles</span>
           <span routerLink="subjects" class="link">Thèmes</span>
-          <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+          <mat-icon routerLink="profile" aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+        </div>
+      </mat-toolbar>
+      <mat-toolbar class="mobile">
+        <img src="../assets/logo_p6.png" >
+        <div  class="router-links" *ngIf="isLogged()">
+        <mat-icon (click)="openModal()" aria-label="Side nav toggle icon">menu</mat-icon>
         </div>
       </mat-toolbar>
 </router-outlet>

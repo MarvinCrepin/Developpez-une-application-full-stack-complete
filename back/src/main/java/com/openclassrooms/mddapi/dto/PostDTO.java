@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openclassrooms.mddapi.models.Subject;
 import com.openclassrooms.mddapi.models.User;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,14 @@ public class PostDTO {
 
     private Long id;
 
+    private String subjectName;
+
     private Long subject_id;
 
+    @JsonIgnore
     private Long author_id;
+
+    private String author;
 
     private String title;
 

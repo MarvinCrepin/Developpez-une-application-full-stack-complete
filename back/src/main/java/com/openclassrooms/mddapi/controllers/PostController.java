@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,9 @@ public class PostController {
         Optional<List<Subscription>> subscriptions = this.subscriptionService.findByUser(user);
 
         try {
-            if(subscriptions.isEmpty()) {
-                return ResponseEntity.ok().build();
+
+            if(subscriptions.isPresent() && subscriptions.get().size() == 0)  {
+                return ResponseEntity.ok().body(this.postMapper.toDto(this.postService.findAll()));
             }
 
             List<PostDTO> list = new ArrayList<>(subscriptions.get().size());
@@ -81,9 +83,10 @@ public class PostController {
     @PostMapping()
     public ResponseEntity<?> create(Principal principal, @Valid @RequestBody PostDTO postDto) {
         User user = this.userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println(user.getId());
+        System.out.println(postDto);
         postDto.setAuthor_id(user.getId());
-        Post post = this.postService.create(this.postMapper.toEntity(postDto));
-
-        return ResponseEntity.ok().body(this.postMapper.toDto(post));
+        this.postService.create(this.postMapper.toEntity(postDto));
+        return ResponseEntity.ok().build();
     }
 }

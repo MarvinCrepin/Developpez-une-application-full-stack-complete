@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.payload.request;
 
+import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
+
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
@@ -9,7 +11,8 @@ public class LoginRequest {
 	@NotBlank
 	private String password;
 
-	public String getEmail() {
+
+	public String getEmailOrUsername() {
 		return email;
 	}
 
@@ -24,4 +27,6 @@ public class LoginRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 }

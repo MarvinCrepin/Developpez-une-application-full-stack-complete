@@ -32,20 +32,25 @@ export class LoginComponent {
   });
 
   constructor(private authService: AuthService,
-              private fb: FormBuilder,
-              private router: Router,
-              private sessionService: SessionService
-             ) {
+    private fb: FormBuilder,
+    private router: Router,
+    private sessionService: SessionService
+  ) {
   }
 
   public submit(): void {
     const loginRequest = this.form.value as LoginRequest;
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
-        this.sessionService.logIn(response as SessionInformation);
-        this.router.navigate(['/feed']);
+        if (response.token) {
+          console.log(response)
+          this.router.navigate(['/feed']);
+        }
       },
       error: error => this.onError = true,
     });
+  }
+  public back() {
+    window.history.back()
   }
 }

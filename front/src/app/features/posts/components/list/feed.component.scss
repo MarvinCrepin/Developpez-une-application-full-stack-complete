@@ -15,8 +15,8 @@
 
 .article-card {
     background-color: #f0f0f0;
-    width: 80%;
     height: 50%;
+    width: 80%;
 }
 
 .footer {
@@ -32,3 +32,40 @@
         margin-left: 5em;
     }
 }
+
+
+
+@media screen and (max-width: 768px) {
+    /* Styles spécifiques aux appareils mobiles */
+    .header {
+      display: flex;
+      flex-direction: column; /* Passer en colonne pour les appareils mobiles */
+      align-items: center; /* Centrer le contenu verticalement */
+      button, div, .sort-text {
+        margin: 1em 0; /* Ajuster la marge pour les appareils mobiles */
+      }
+    }
+
+    mat-grid-tile {
+        padding: 2em;
+    }
+  
+    .articles-container {
+      display: flex;
+      flex-direction: column; /* Passer en colonne pour les appareils mobiles */
+      align-items: center; /* Centrer les articles verticalement */
+    }
+  
+    .article-card {
+      background-color: #f0f0f0;
+      margin: 1em 0; /* Ajuster la marge pour les appareils mobiles */
+      width: 60%;
+    }
+  
+    .title-date {
+      display: flex;
+      flex-direction: column; /* Passer en colonne pour les appareils mobiles */
+      text-align: center; /* Centrer le texte horizontalement */
+      margin: 1em 0; /* Ajuster la marge pour les appareils mobiles */
+    }
+  }

@@ -1,0 +1,20 @@
+<mat-grid-list cols="2" class="articles-container" [gutterSize]="'10px'" rowHeight="3:1">
+  <!-- Boucle sur les articles depuis une liste d'articles -->
+  <div *ngFor="let subject of subjects">
+    <mat-grid-tile>
+      <mat-card class="article-card">
+        <mat-card-content>
+          <h2>{{ subject.name }}</h2>
+          <div class="title-date">
+            <p>{{ subject.description }}</p>
+          </div>
+          <div class="flex">
+            <button class="subscribe-button" (click)="processState(subject.id)" mat-raised-button color="primary">
+              {{ subject.hasOwnProperty('isSubscribed') ? "Se désabonner" : "S'abonner" }}
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>

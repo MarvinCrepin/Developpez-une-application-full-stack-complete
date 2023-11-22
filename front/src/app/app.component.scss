@@ -30,3 +30,15 @@ mat-toolbar {
         cursor: pointer;
     }
 }
+
+/* Media query pour les appareils mobiles */
+@media screen and (max-width: 768px) {
+    .desktop {
+      display: none; /* Pour masquer complètement la barre d'outils */
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .mobile {
+      display: none; /* Pour masquer complètement la barre d'outils */
+    }
+  }

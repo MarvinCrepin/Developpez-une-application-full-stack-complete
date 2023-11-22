@@ -1,13 +1,16 @@
 package com.openclassrooms.mddapi.controllers;
 
+import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.payload.request.UpdateUserRequest;
 import com.openclassrooms.mddapi.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -50,6 +53,16 @@ public class UserController {
             return ResponseEntity.ok().body(this.userMapper.toDto(user));
         } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserDTO> updateCurrentUserInformation(@RequestBody UpdateUserRequest updateUser) {
+        Optional<User> updatedUser = userService.updateCurrentUserInformation(updateUser.getUsername(), updateUser.getEmail());
+        if (updatedUser.isPresent()) {
+            return ResponseEntity.ok(userMapper.toDto(updatedUser.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
