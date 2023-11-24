@@ -1,7 +1,7 @@
 <mat-dialog-content class="modal-content">
-    <h2>Menu</h2>
     <mat-nav-list>
-      <a mat-list-item routerLink="/articles" (click)="closeModal()">Articles</a>
-      <a mat-list-item routerLink="/themes" (click)="closeModal()">Thèmes</a>
+      <a mat-list-item routerLink="/feed" (click)="closeModal()">Articles</a>
+      <a mat-list-item routerLink="/subjects" (click)="closeModal()">Thèmes</a>
+      <mat-icon routerLink="profile" aria-hidden="false" (click)="closeModal()" aria-label="Example home icon" class="profile" fontIcon="account_circle"></mat-icon>
     </mat-nav-list>
   </mat-dialog-content>

@@ -5,6 +5,8 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../interfaces/post.interface';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/features/modal/components/modal.component';
 
 @Component({
   selector: 'app-feed',
@@ -14,18 +16,17 @@ import { EventEmitter } from '@angular/core';
 export class FeedComponent implements OnInit {
   @Output() mobileStatusChange = new EventEmitter<boolean>();
   isMobile!: boolean;
-
   public posts: Post[] | undefined;
 
   constructor(private postService: PostService,
-    private mediaMatcher: MediaMatcher) {
+    private mediaMatcher: MediaMatcher, public dialog: MatDialog) {
   }
 
   public ngOnInit(): void {
     this.getAll();
   }
   checkIfMobile() {
-    this.isMobile = window.innerWidth <= 768; // Adapter la valeur selon vos besoins
+    this.isMobile = window.innerWidth <= 850; // Adapter la valeur selon vos besoins
     this.mobileStatusChange.emit(this.isMobile);
   }
 
@@ -36,7 +37,9 @@ export class FeedComponent implements OnInit {
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    console.log(this.isMobile)
     this.checkIfMobile();
+    if(!this.isMobile) {
+      this.dialog.closeAll()
+    }
   }
 }

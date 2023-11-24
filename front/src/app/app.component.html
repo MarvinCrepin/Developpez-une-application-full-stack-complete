@@ -1,6 +1,6 @@
 <router-outlet>
-    <mat-toolbar  class="desktop">
-        <img src="../assets/logo_p6.png" >
+    <mat-toolbar class="desktop">
+        <img style="cursor: pointer" routerLink="feed" src="../assets/logo_p6.png" >
         <div class="router-links" *ngIf="isLogged()">
           <span routerLink="feed" class="link">Articles</span>
           <span routerLink="subjects" class="link">Thèmes</span>

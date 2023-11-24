@@ -1,7 +1,7 @@
-<mat-grid-list cols="2" class="articles-container" [gutterSize]="'10px'" rowHeight="3:1">
+<div class="grid-container">
   <!-- Boucle sur les articles depuis une liste d'articles -->
+  <div class="article-grid">
   <div *ngFor="let subject of subjects">
-    <mat-grid-tile>
       <mat-card class="article-card">
         <mat-card-content>
           <h2>{{ subject.name }}</h2>
@@ -15,6 +15,6 @@
           </div>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
+    </div>
   </div>
-</mat-grid-list>
+</div>

@@ -18,12 +18,12 @@ export class AppComponent {
     public dialog: MatDialog){
   }
 
+
   openModal(): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '50%',
       height: '100%'
     });
-    console.log(dialogRef)
   }
 
   closeModal(): void {

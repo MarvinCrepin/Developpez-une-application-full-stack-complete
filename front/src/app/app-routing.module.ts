@@ -9,11 +9,12 @@ import { DetailComponent } from './features/posts/components/detail/detail.compo
 import { NewComponent } from './features/posts/components/new/new.component';
 import { ProfileComponent } from './features/user/components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { LoggedInGuard } from './guards/loggedIn.guard';
 
 // consider a guard combined with canLoad / canActivate route option
 // to manage unauthenticated user to access private routes
-const routes: Routes = [{ path: '', component: HomeComponent},
- {path: 'login', component: LoginComponent },
+const routes: Routes = [{ path: '', component: HomeComponent,  canActivate: [LoggedInGuard]},
+ {path: 'login', component: LoginComponent, canActivate: [LoggedInGuard]},
  {path: 'register', component: RegisterComponent },
  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
  { path: 'new_post', component: NewComponent, canActivate: [AuthGuard] },
