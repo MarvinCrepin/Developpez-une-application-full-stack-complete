@@ -1,7 +1,46 @@
+
 .center {
-  height: 100vh;
+  height: 100%;
+  @media screen and (max-width: 767px) {
+    height: 75%;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 40em;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    button {
+      margin: 2em;
+      width: 15em;
+    }
+  }
+  @media screen and (max-width: 767px) {
+  
+    .button-container {
+      flex-direction: column;
+      text-align: center;
+      button {
+        margin-top: 1em;
+        margin-bottom: 1em;
+       }
+    }
+   
+    img {
+      width: 25em;
+      align-items: first baseline;
+     }
+     
+  }
 }
+

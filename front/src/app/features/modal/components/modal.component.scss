@@ -1,0 +1,47 @@
+
+
+::ng-deep mat-dialog-container {
+  position: fixed !important;
+  right: 0 !important;
+  width: 40% !important;
+}
+.profile {
+  position: fixed;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  right: 1em;
+  transform: scale(2);
+}
+.mat-dialog-content {
+    height: initial;
+    background-color: white; /* Couleur d'arrière-plan de la modal */
+    z-index: 1000; /* Assurez-vous que la modal est au-dessus du contenu principal */
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    overflow-y: auto; /* Pour la barre de défilement si le contenu dépasse */
+  }
+
+
+  h2 {
+    margin: 0;
+  }
+  
+  .mat-nav-list {
+    padding: 0;
+    list-style: none;
+    margin-top: 16px;
+  }
+  
+  .mat-list-item {
+    padding: 8px 0;
+    cursor: pointer;
+  }
+  
+  /* Si vous voulez un style pour les liens */
+  .mat-list-item a {
+    text-decoration: none;
+    color: #333;
+  }
+  

@@ -8,6 +8,7 @@ import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.models.Subject;
 import com.openclassrooms.mddapi.models.Subscription;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.payload.request.ProcessStateRequest;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.services.PostService;
 import com.openclassrooms.mddapi.services.SubjectService;
@@ -41,10 +42,10 @@ public class SubscriptionController {
         this.subjectService = subjectService;
         this.subjectMapper = subjectMapper;
     }
-    @PostMapping("/{id}")
-    public ResponseEntity<?> processState(@PathVariable("id") String id) {
+    @PostMapping("")
+    public ResponseEntity<?> processState(@RequestBody ProcessStateRequest processStateRequest) {
         User user = this.userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        Subject subject = this.subjectService.findById(Long.valueOf(id));
+        Subject subject = this.subjectService.findById(processStateRequest.getId());
         try {
             Optional<Subscription> subscription = this.subscriptionService.findByUserAndSubject(user, subject);
 
@@ -60,6 +61,7 @@ public class SubscriptionController {
             return ResponseEntity.badRequest().build();
         }
     }
+
 
     @GetMapping("")
     public ResponseEntity<?> findByUser() {

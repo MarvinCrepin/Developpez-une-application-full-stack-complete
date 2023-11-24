@@ -1,0 +1,26 @@
+<style>
+
+</style>
+
+<div class="header">
+  <button [routerLink]="['/new_post']" mat-raised-button color="primary">Créer un article</button>
+  <div class="sort-text">Trier par <mat-icon>arrow_downward</mat-icon></div>
+</div>
+
+<!-- Boucle sur les articles depuis une liste d'articles -->
+<div class="article-grid">
+  <div *ngFor="let post of posts">
+    <a [routerLink]="['/post', post.id]">
+      <mat-card class="article-card">
+        <mat-card-content>
+          <h2>{{ post.title }}</h2>
+          <div class="title-date">
+            <p>{{ post.createdDate | date: "dd/MM/YYYY" }}</p>
+            <p>{{ post.author }}</p>
+          </div>
+          <p>Content : {{ post.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</div>

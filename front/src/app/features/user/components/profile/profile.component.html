@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 class="text-center">Profil utilisateur</h2>
+
+    <div class="content">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field>
+                <input matInput formControlName="username" placeholder="Nom d'utilisateur">
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput formControlName="email" placeholder="E-mail"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Sauvegarder</button>
+            <span (click)="logOut()" class="red-text">Se déconnecter</span>
+        </form>
+    </div>
+    <div>
+        <h1 class="text-center">Abonnements</h1>
+        <mat-grid-list cols="2" class="articles-container" [gutterSize]="'10px'" rowHeight="3:1">
+            <!-- Boucle sur les articles depuis une liste d'articles -->
+            <div *ngFor="let subject of subjects">
+              <mat-grid-tile>
+                <mat-card class="article-card">
+                  <mat-card-content>
+                    <h2>{{ subject.name }}</h2>
+                    <div class="title-date">
+                      <p>{{ subject.description }}</p>
+                    </div>
+                    <div class="flex">
+                      <button class="subscribe-button" (click)="processState(subject.id)" mat-raised-button color="primary">
+                       Se désabonner
+                      </button>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </mat-grid-tile>
+            </div>
+          </mat-grid-list>
+    </div>
